@@ -1,0 +1,22 @@
+server:
+  port: 8011
+spring:
+  application:
+    name: customer-provider
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_school?serverTimezone=GMT%2b8
+    username: root
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: cn.zql.goodscommon.pojo
+
+eureka:
+  client:
+    service-url:
+      defaultzone: http://localhost:8761/eureka
+
+
+

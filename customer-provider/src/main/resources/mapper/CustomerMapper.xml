@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.zql.customerprovider.dao.CustomerDAO">
+    <!--不用mybatis plus的@TableName注解-->
+<!--    <resultMap id="customerMap" type="Customer">-->
+<!--        <id property="customerId" column="id"/>-->
+<!--        <result property="customerName" column="customer_name"/>-->
+<!--        <result property="customerAddress" column="customer_address"/>-->
+<!--        <result property="customerTicket" column="customer_ticket"/>-->
+<!--    </resultMap>-->
+    <select id="getCustomerList" resultType="cn.zql.goodscommon.pojo.Customer">
+        select *from customer
+    </select>
+    <select id="getCustomerById" resultType="cn.zql.goodscommon.pojo.Customer">
+        select *from customer where customerId=#{customerId}
+    </select>
+    <insert id="add">
+        insert into customer(customer_name,customer_address,customer_ticket)
+        values(#{customerName},#{customerAddress},#{customerTicket})
+    </insert>
+    <delete id="delBatch">
+        delete from customer where customerId in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteById">
+        delete from customer where customerId=#{customerId}
+    </delete>
+    <update id="update">
+        update customer
+        <set>
+            <if test="customerName != null">
+                customer_name=#{customerName},
+            </if>
+            <if test="customerAddress != null">
+                customer_address=#{customerAddress},
+            </if>
+            <if test="customerTicket != null">
+                customer_ticket=#{customerTicket}
+            </if>
+        </set>
+        where customerId=#{customerId}
+    </update>
+</mapper>
